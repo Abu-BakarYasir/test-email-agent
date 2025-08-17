@@ -1,68 +1,67 @@
-#!/usr/bin/env python
-import sys
-import warnings
+import os
+from composio  import Composio
+from groq import Groq
+from dotenv import load_dotenv
 
-from datetime import datetime
+load_dotenv()
 
-from my_email_agent.crew import MyEmailAgent
-
-warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
-
-# This main file is intended to be a way for you to run your
-# crew locally, so refrain from adding unnecessary logic into this file.
-# Replace with inputs you want to test with, it will automatically
-# interpolate any tasks and agents information
-
-def run():
-    """
-    Run the crew.
-    """
-    inputs = {
-        'topic': 'AI LLMs',
-        'current_year': str(datetime.now().year)
-    }
-    
-    try:
-        MyEmailAgent().crew().kickoff(inputs=inputs)
-    except Exception as e:
-        raise Exception(f"An error occurred while running the crew: {e}")
+composio = Composio(api_key=os.getenv("COMPOSIO_API_KEY"))
+groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+USER_EMAIL = os.getenv("USER_EMAIL")
+GMAIL_AUTH_CONFIG_ID = os.getenv("COMPOSIO_GMAIL_CONNECTION_ID")
 
 
-def train():
-    """
-    Train the crew for a given number of iterations.
-    """
-    inputs = {
-        "topic": "AI LLMs",
-        'current_year': str(datetime.now().year)
-    }
-    try:
-        MyEmailAgent().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
+# Connect Gmail account
+connection_request = composio.connected_accounts.initiate(
+    user_id=USER_EMAIL,
+    auth_config_id=GMAIL_AUTH_CONFIG_ID,
+)
 
-    except Exception as e:
-        raise Exception(f"An error occurred while training the crew: {e}")
+# Redirect user to OAuth flow
+redirect_url = connection_request.redirect_url
+print(f"Visit this URL to authorize: {redirect_url}")
 
-def replay():
-    """
-    Replay the crew execution from a specific task.
-    """
-    try:
-        MyEmailAgent().crew().replay(task_id=sys.argv[1])
+# Wait for connection
+connected_account = connection_request.wait_for_connection()
+print("✅ Gmail account connected!")
 
-    except Exception as e:
-        raise Exception(f"An error occurred while replaying the crew: {e}")
+# Get Gmail tools
+tools = composio.tools.get(user_id=USER_EMAIL, tools=["GMAIL_SEND_EMAIL"])
 
-def test():
-    """
-    Test the crew execution and returns the results.
-    """
-    inputs = {
-        "topic": "AI LLMs",
-        "current_year": str(datetime.now().year)
-    }
-    
-    try:
-        MyEmailAgent().crew().test(n_iterations=int(sys.argv[1]), eval_llm=sys.argv[2], inputs=inputs)
+# Generate email content using OpenAI
+# Generate email content using Groq
+response = groq_client.chat.completions.create(
+     model="llama-3.3-70b-versatile",
+    tools=tools,
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {
+            "role": "user",
+            "content": (
+                f"Send an email to {USER_EMAIL} with subject 'Hello from composio 👋🏻' "
+                "and body 'Congratulations on sending your first email using AI Agents and Composio!'"
+            ),
+        },
+    ],
+)
 
-    except Exception as e:
-        raise Exception(f"An error occurred while testing the crew: {e}")
+
+# Execute the tool call
+result = composio.provider.handle_tool_calls(response=response, user_id=USER_EMAIL)
+print(result)
+print("✅ Email sent successfully!")
+
+# Create a trigger to monitor new emails
+trigger = composio.triggers.create(
+    user_id=USER_EMAIL,
+    slug="GMAIL_NEW_GMAIL_MESSAGE",
+    trigger_config={"labelIds": "INBOX", "userId": "me", "interval": 60},
+)
+print(f"✅ Trigger created successfully. Trigger Id: {trigger.trigger_id}")
+
+# Subscribe to trigger events
+subscription = composio.triggers.subscribe()
+
+@subscription.handle(trigger_id=trigger.trigger_id)
+def handle_gmail_event(data):
+    print("New Gmail Event:", data)
