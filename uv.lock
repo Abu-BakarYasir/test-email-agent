@@ -9,6 +9,9 @@ resolution-markers = [
     "python_full_version < '3.11'",
 ]
 
+[options]
+prerelease-mode = "allow"
+
 [[package]]
 name = "aiohappyeyeballs"
 version = "2.6.1"
@@ -592,6 +595,52 @@ wheels = [
 ]
 
 [[package]]
+name = "composio"
+version = "0.8.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "composio-client" },
+    { name = "openai" },
+    { name = "pydantic" },
+    { name = "pysher" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/6e/fc/5e5299dfeffcb89efe523f0168cb59d94f71fe156207fec8010903ff1708/composio-0.8.8.tar.gz", hash = "sha256:99548e90dcc09ee8c7304110e552720c25143d63dba83a6e9bca0ebca7d7911e", size = 38316, upload-time = "2025-08-15T05:00:39.435Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/16/39/f98706a7f74737cb1a301e8962f3985cc3e1f8a8eaffb71a8617471bd7be/composio-0.8.8-py3-none-any.whl", hash = "sha256:52c51650582b5bacecde94fdb03fdf03ca8365bc17bd5f42114ef57267ee1991", size = 47325, upload-time = "2025-08-15T05:00:26.77Z" },
+]
+
+[[package]]
+name = "composio-client"
+version = "1.6.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "distro" },
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "sniffio" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/21/a2/71e97c8f9c0c4fb0a1734417f629c83717c5f973b0cd8ccb95b803dd9224/composio_client-1.6.0.tar.gz", hash = "sha256:2adaf9bdaf449384d1d32f9361af20009c0675c68381cd9e9a4234f08969ab23", size = 169235, upload-time = "2025-07-21T06:07:18.72Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4f/2c/19f4ff86f0b3c5fb442e70185ead4feae6237abecfb35f109c9ccc2a6d5e/composio_client-1.6.0-py3-none-any.whl", hash = "sha256:e32055eeae8b49e7b94329808604f849e74bc557a453d3e37b37fe5cb627930b", size = 199273, upload-time = "2025-07-21T06:07:17.316Z" },
+]
+
+[[package]]
+name = "composio-crewai"
+version = "0.8.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "composio" },
+    { name = "crewai" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/94/ff/fb474efcb539cf5d70e88377b651108e50827cc2bc891b4a17f46545cbcf/composio_crewai-0.8.8.tar.gz", hash = "sha256:578d624ecfea16910816ab6f0beba9c3dc9dd313cb49a8dcb3619a1ff3deb60b", size = 2217, upload-time = "2025-08-15T05:00:41.301Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/84/3a/28d8d5e79f3d7d53a2de27415c7d0a517972e5a35363e326d0dd5e242232/composio_crewai-0.8.8-py3-none-any.whl", hash = "sha256:1b6e8367bd77335f33cecf987dc2c54560772d79557836c37653a75196571ae5", size = 2488, upload-time = "2025-08-15T05:00:30.643Z" },
+]
+
+[[package]]
 name = "crewai"
 version = "0.159.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1103,6 +1152,23 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/b8/19/06b6cf5d604e2c382a6f31cafafd6f33d5dea706f4db7bdab184bad2b21d/greenlet-3.2.4-cp313-cp313-musllinux_1_1_aarch64.whl", hash = "sha256:00fadb3fedccc447f517ee0d3fd8fe49eae949e1cd0f6a611818f4f6fb7dc83b", size = 1121662, upload-time = "2025-08-07T13:42:41.117Z" },
     { url = "https://files.pythonhosted.org/packages/a2/15/0d5e4e1a66fab130d98168fe984c509249c833c1a3c16806b90f253ce7b9/greenlet-3.2.4-cp313-cp313-musllinux_1_1_x86_64.whl", hash = "sha256:d25c5091190f2dc0eaa3f950252122edbbadbb682aa7b1ef2f8af0f8c0afefae", size = 1149210, upload-time = "2025-08-07T13:18:24.072Z" },
     { url = "https://files.pythonhosted.org/packages/0b/55/2321e43595e6801e105fcfdee02b34c0f996eb71e6ddffca6b10b7e1d771/greenlet-3.2.4-cp313-cp313-win_amd64.whl", hash = "sha256:554b03b6e73aaabec3745364d6239e9e012d64c68ccd0b8430c64ccc14939a8b", size = 299685, upload-time = "2025-08-07T13:24:38.824Z" },
+]
+
+[[package]]
+name = "groq"
+version = "0.31.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "distro" },
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "sniffio" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/66/a2/77fd1460e7d55859219223719aa44ae8902a3a1ad333cd5faf330eb0b894/groq-0.31.0.tar.gz", hash = "sha256:182252e9bf0d696df607c137cbafa851d2c84aaf94bcfe9165c0bc231043490c", size = 136237, upload-time = "2025-08-05T23:14:01.183Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ab/f8/14672d69a91495f43462c5490067eeafc30346e81bda1a62848e897f9bc3/groq-0.31.0-py3-none-any.whl", hash = "sha256:5e3c7ec9728b7cccf913da982a9b5ebb46dc18a070b35e12a3d6a1e12d6b0f7f", size = 131365, upload-time = "2025-08-05T23:13:59.768Z" },
 ]
 
 [[package]]
@@ -2139,11 +2205,21 @@ name = "my-email-agent"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "composio" },
+    { name = "composio-crewai" },
     { name = "crewai", extra = ["tools"] },
+    { name = "groq" },
+    { name = "python-dotenv" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "crewai", extras = ["tools"], specifier = ">=0.159.0,<1.0.0" }]
+requires-dist = [
+    { name = "composio", specifier = ">=0.8.8" },
+    { name = "composio-crewai", specifier = ">=0.8.8" },
+    { name = "crewai", extras = ["tools"], specifier = ">=0.159.0,<1.0.0" },
+    { name = "groq", specifier = ">=0.31.0" },
+    { name = "python-dotenv", specifier = ">=1.1.1" },
+]
 
 [[package]]
 name = "mypy-extensions"
@@ -3287,6 +3363,16 @@ source = { registry = "https://pypi.org/simple" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/48/0a/c99fb7d7e176f8b176ef19704a32e6a9c6aafdf19ef75a187f701fc15801/pysbd-0.3.4-py3-none-any.whl", hash = "sha256:cd838939b7b0b185fcf86b0baf6636667dfb6e474743beeff878e9f42e022953", size = 71082, upload-time = "2021-02-11T16:36:33.351Z" },
 ]
+
+[[package]]
+name = "pysher"
+version = "1.0.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "requests" },
+    { name = "websocket-client" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/12/a0/d0638470df605ce266991fb04f74c69ab1bed3b90ac3838e9c3c8b69b66a/Pysher-1.0.8.tar.gz", hash = "sha256:7849c56032b208e49df67d7bd8d49029a69042ab0bb45b2ed59fa08f11ac5988", size = 9071, upload-time = "2022-10-10T13:41:09.936Z" }
 
 [[package]]
 name = "python-dateutil"

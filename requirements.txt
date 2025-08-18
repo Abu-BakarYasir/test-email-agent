@@ -4,3 +4,6 @@ composio-crewai
 langchain
 python-dotenv
 openai
+crewai
+composio-gmail
+groq
